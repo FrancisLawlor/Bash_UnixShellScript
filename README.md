@@ -4,11 +4,11 @@ A simple shell script designed to mimic the functionality of the bash terminal w
 
 Instructions for use:
 
-1. Compile the source files in to an executable file.
+Compile the source files in to an executable file.
 ```
 gcc -main.c -shell.c -o bash.out
 ```
-2. Run the executable file in the console.
+Run the executable file in the console.
 ```
- ./bash.out
+./bash.out
 ```
