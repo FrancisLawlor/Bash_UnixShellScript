@@ -5,7 +5,7 @@
 #include "shell.h"
 
 //function to parse the input string when the user includes the '>' character
-output parseInput(char * input) {
+output parseInput(char* input) {
 	//struct to store and return data
 	output out;
 
@@ -14,19 +14,20 @@ output parseInput(char * input) {
 	char** output = malloc(sizeof(char*));
 
 	//split input if '>' is present
-	char* temp = strtok(input, ">");
-	while (temp != NULL) {
-		output[i] = temp;
+	char* upToGreaterThan = strtok(input, ">");
+
+	while (upToGreaterThan != NULL) {
+		output[i] = upToGreaterThan;
 		i++;
 		output = realloc(output, (i + 1) * sizeof(char*));
-		temp = strtok(NULL, "/0");
+		upToGreaterThan = strtok(NULL, "/0");
 	}
 
 	output[i] = NULL;
 	
-	//store command name in phrase field in struct
-	out.phrase = (char*) malloc(strlen(output[0]));
-	strcpy(out.phrase, output[0]);
+	//store command name in command field in struct
+	out.command = (char*) malloc(strlen(output[0]));
+	strcpy(out.command, output[0]);
 	
 	//store output file name in filename field of struct
 	out.filename = (char*) malloc(strlen(output[1]));
@@ -40,7 +41,7 @@ void printCurrentTime() {
 	time_t currenttime;
 	time(&currenttime);
 
-	struct tm *data;
+	struct tm* data;
 	char timestring[50];
 	
 	data = localtime(&currenttime);

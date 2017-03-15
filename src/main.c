@@ -33,7 +33,7 @@ int main(void) {
 		char** output = malloc(sizeof(char*));
 		
 		pid_t child_pid;
-		int childstats;
+		int childStats;
 
 		//detect ctrl+c input
 		signal(SIGINT, handleCtrlC);
@@ -50,7 +50,7 @@ int main(void) {
 		}
 
 		//remove \n from end of input
-		input[strlen(input)-1] = '\0';
+		input[strlen(input) - 1] = '\0';
 
 		//Check if input has '>'
 		char* greaterThanSymbol = strchr(input, '>');
@@ -63,19 +63,19 @@ int main(void) {
 		int i = 0;
 
 		//split input string by spaces
-		char* temp = strtok(input, " ");
-		while (temp != NULL){
-			output[i] = temp;
+		char* upToSpace = strtok(input, " ");
+		while (upToSpace != NULL){
+			output[i] = upToSpace;
 			i++;
 			output = realloc(output, (i + 1) * sizeof(char*));
-			temp = strtok(NULL, " ");
+			upToSpace = strtok(NULL, " ");
 		}
 		
 		output[i] = NULL;
 
 		//assign contents of output array to argv
 		int j;
-		
+
 		for (j = 0; j < i; j++){
 			argv[j] = output[j];
 		}
@@ -113,12 +113,12 @@ int main(void) {
 		child_pid = fork();
 
 		if (child_pid == 0) {
-			//if '>' operator is not present in input
-			if(greaterThanSymbol != NULL){
+			//if '>' operator is present in input
+			if(greaterThanSymbol != NULL) {
 				int stdo = dup(1); //store current stdout location for returning after redirection
 				int file = open(out.filename, O_WRONLY | O_CREAT | O_TRUNC, 0666); //open file with parsed filename
 				dup2(file, 1); //change stdout location to file
-				execvp(out.phrase, argv);	//execute command and output to new stdout.
+				execvp(out.command, argv);	//execute command and output to new stdout.
 				dup2(stdo, 1); //return to original stdout location.
 				close(stdo);
 				printf("Unknown command\n"); //if command doesn't exit output this statement.
@@ -127,7 +127,7 @@ int main(void) {
 			} else {
 				execvp(argv[0], argv);
 
-				if(cd == false && (greaterThanSymbol == NULL)) {
+				if(cd == false && greaterThanSymbol == NULL) {
 					printf("Unknown command\n");
 				}
 
@@ -136,7 +136,7 @@ int main(void) {
 			}
 		} else {
 			//wait for child process to finish
-			wait(&childstats);
+			wait(&childStats);
 		}
 	}
 }

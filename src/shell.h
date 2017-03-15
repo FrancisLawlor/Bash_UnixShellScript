@@ -1,6 +1,6 @@
 //struct used to return command and filename from function parsing input containing '>'
-typedef struct output{
-	char* phrase;
+typedef struct output {
+	char* command;
 	char* filename;
 } output;
 
