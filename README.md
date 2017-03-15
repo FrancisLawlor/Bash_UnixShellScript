@@ -4,13 +4,13 @@
 
 A simple shell script designed to mimic the functionality of the bash terminal with a few slight changes.
 
-##Features##
+## Features ##
 
-** *exec() and fork()* **
+#### *exec() and fork()* ####
 
 The script will not be killed every time a command is entered as a new process is created for each command.
 
-** *Date in prompt* **
+#### *Date in prompt* ####
 
 The prompt displays the date and local time in the following format:
 
@@ -18,19 +18,19 @@ The prompt displays the date and local time in the following format:
 [dd/mm hh:mm]
 ```
 
-** *Catches SIGINT signal* **
+#### *Catches SIGINT signal* ####
 
 When the user types Ctrl + c the shell does not exit. Ctrl + d will still exit.
 
-** *Change directory builtin* **
+#### *Change directory builtin* ####
 
 Program contains implementation of cd command.
 
-** *Redirect builtin* **
+#### *Redirect builtin* ####
 
 Program contains implementation of redirect for ```stdout``` using ```>``` symbol.
 
-###Usage###
+### Usage ###
 
 Compile the source files in to an executable file.
 ```
