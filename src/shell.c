@@ -2,7 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <signal.h>
 #include "shell.h"
+
+//function to handle ctrl+c
+static void handleCtrlC(int sig) {
+	signal(SIGINT, handleCtrlC);
+	printf("\n");
+	printCurrentTime();
+	printf(" # ");
+	fflush(stdout);
+}
 
 //function to parse the input string when the user includes the '>' character
 output parseInput(char * input){

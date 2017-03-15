@@ -6,7 +6,7 @@ typedef struct output{
 
 //function declarations
 output parseInput(char * input);
-static void handlectrlc(int sig);
+static void handleCtrlC(int sig);
 void printCurrentTime();
 
 //Name: Francis Lawlor
