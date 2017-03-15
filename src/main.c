@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
-#include <signal.h>
 #include <dirent.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "shell.h"
 
 //function to handle ctrl+c
@@ -27,10 +27,10 @@ int main(void) {
 		output out;
 		
 		//array used to store arguments for commands.
-		char *argv[50];
+		char* argv[50];
 		
 		//double pointer used to store output once parsed.
-		char **output = malloc(sizeof(char*));
+		char** output = malloc(sizeof(char*));
 		
 		pid_t child_pid;
 		int childstats;
@@ -63,7 +63,7 @@ int main(void) {
 		int i = 0;
 
 		//split input string by spaces
-		char * temp = strtok(input, " ");
+		char* temp = strtok(input, " ");
 		while (temp != NULL){
 			output[i] = temp;
 			i++;
@@ -75,6 +75,7 @@ int main(void) {
 
 		//assign contents of output array to argv
 		int j;
+		
 		for (j = 0; j < i; j++){
 			argv[j] = output[j];
 		}

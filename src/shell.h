@@ -1,11 +1,11 @@
 //struct used to return command and filename from function parsing input containing '>'
 typedef struct output{
-	char * phrase;
-	char * filename;
+	char* phrase;
+	char* filename;
 } output;
 
 //function declarations
-output parseInput(char * input);
+output parseInput(char* input);
 static void handleCtrlC(int sig);
 void printCurrentTime();
 
