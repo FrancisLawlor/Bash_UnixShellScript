@@ -25,13 +25,13 @@ int main(void) {
 	//while loop ensures shell continues to run after each input
 	while(1) {
 		output out;
-		
+
 		//array used to store arguments for commands.
 		char* argv[50];
-		
+
 		//double pointer used to store output once parsed.
 		char** output = malloc(sizeof(char*));
-		
+
 		pid_t child_pid;
 		int childStats;
 
@@ -41,9 +41,9 @@ int main(void) {
 		//print time and '#' as part of prompt
   		printCurrentTime();
 		printf(" # ");
-		
+
 		fflush(stdin);
-			
+
 		//get input from user and break if input is ctrl+d
 		if (!fgets(input, 1024, stdin)) {
 			break;
@@ -54,7 +54,7 @@ int main(void) {
 
 		//Check if input has '>'
 		char* greaterThanSymbol = strchr(input, '>');
-		
+
 		//if the '>' character is present, parse input and store in struct object.
 		if (greaterThanSymbol != NULL) {
 			out = parseInput(input);
@@ -70,7 +70,7 @@ int main(void) {
 			output = realloc(output, (i + 1) * sizeof(char*));
 			upToSpace = strtok(NULL, " ");
 		}
-		
+
 		output[i] = NULL;
 
 		//assign contents of output array to argv
@@ -79,9 +79,9 @@ int main(void) {
 		for (j = 0; j < i; j++){
 			argv[j] = output[j];
 		}
-	
+
 		argv[i] = NULL;
-		
+
 		//boolean variable to track whether or not user has used the command "cd"
 		bool cd = false;
 
@@ -90,7 +90,7 @@ int main(void) {
 			//if i>1 then cd has arguments, else inform user that he/she must specify a directory
 			if (i > 1) {
 				DIR* dir = opendir(argv[1]);
-				
+
 				//if directory exists, change directory.
 				if (dir) {
 					chdir(argv[1]);
@@ -107,7 +107,7 @@ int main(void) {
 				cd = true;
 			}
 		}
-		
+
 		//create child process
 
 		child_pid = fork();
@@ -140,7 +140,3 @@ int main(void) {
 		}
 	}
 }
-
-//Name: Francis Lawlor
-//Student Number: 14461158
-//Email: francis.lawlor@ucdconnect.ie
