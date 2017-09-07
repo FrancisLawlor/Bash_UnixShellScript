@@ -23,7 +23,7 @@ int main(void) {
 	while(1) {
 		output out;
 		char** argv = malloc(sizeof(char*));
-		pid_t child_pid;
+		pid_t childPid;
 		int childStats;
 
 		signal(SIGINT, handleCtrlC);
@@ -41,7 +41,6 @@ int main(void) {
 		// Remove '\n' from end of input
 		input[strlen(input) - 1] = '\0';
 
-		// Check if input has '>'
 		char* greaterThanSymbol = strchr(input, '>');
 
 		if (greaterThanSymbol != NULL) {
@@ -61,7 +60,6 @@ int main(void) {
 
 		bool enteredCd = false;
 
-		// If user enters cd and the '>' character is not present
 		if (strcmp(argv[0], "cd") == 0 && (greaterThanSymbol == NULL)) {
 			if (numberOfArguments > 1) {
 				DIR* dir = opendir(argv[1]);
@@ -81,14 +79,14 @@ int main(void) {
 			}
 		}
 
-		child_pid = fork();
+		childPid = fork();
 
-		if (child_pid == 0) {
-			if(greaterThanSymbol != NULL) {
+		if (childPid == 0) {
+			if (greaterThanSymbol != NULL) {
 				int originalStdOutputLocation = dup(1);
 				int file = open(out.filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
-				dup2(file, 1); // Change stdout location to file
+				dup2(file, 1);
 				execvp(out.command, argv);
 				dup2(originalStdOutputLocation, 1);
 				close(originalStdOutputLocation);
@@ -99,7 +97,7 @@ int main(void) {
 			} else {
 				execvp(argv[0], argv);
 
-				if(enteredCd == false && greaterThanSymbol == NULL) {
+				if (!enteredCd) {
 					printf("Unknown command\n");
 				}
 

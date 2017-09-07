@@ -4,46 +4,32 @@
 #include <time.h>
 #include "shell.h"
 
-//function to parse the input string when the user includes the '>' character
 output parseInput(char* input) {
-	output out;
+	output redirectData;
+	char output[2];
 
-	int i = 0;
+	output[0] = strtok(input, ">");
+	output[1] = strtok(NULL, "/0");
 
-	char** output = malloc(sizeof(char*));
+	redirectData.command = (char*) malloc(strlen(output[0]));
+	strcpy(redirectData.command, output[0]);
 
-	//split input if '>' is present
-	char* upToGreaterThan = strtok(input, ">");
+	redirectData.filename = (char*) malloc(strlen(output[1]));
+	strcpy(redirectData.filename, output[1]);
 
-	while (upToGreaterThan != NULL) {
-		output[i] = upToGreaterThan;
-		i++;
-		output = realloc(output, (i + 1) * sizeof(char*));
-		upToGreaterThan = strtok(NULL, "/0");
-	}
-
-	output[i] = NULL;
-
-	out.command = (char*) malloc(strlen(output[0]));
-	strcpy(out.command, output[0]);
-
-	out.filename = (char*) malloc(strlen(output[1]));
-	strcpy(out.filename, output[1]);
-
-	return out;
+	return redirectData;
 }
 
 void printCurrentTime() {
-	time_t currenttime;
-	time(&currenttime);
+	time_t currentTime;
+	time(&currentTime);
 
 	struct tm* data;
-	char timestring[50];
+	char timeString[50];
 
-	data = localtime(&currenttime);
+	data = localtime(&currentTime);
 
-	//assign time to string timestring with format dd/mm hh:mm
-	strftime(timestring, 50, "%d/%m %H:%M", data);
+	strftime(timeString, 50, "%d/%m %H:%M", data);
 
-	printf("[%s]", timestring);
+	printf("[%s]", timeString);
 }
