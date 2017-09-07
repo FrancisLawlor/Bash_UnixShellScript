@@ -1,7 +1,7 @@
-typedef struct output {
+typedef struct RedirectData {
 	char* command;
-	char* filename;
-} output;
+	char* fileName;
+} RedirectData;
 
 output parseInput(char* input);
 static void handleCtrlC(int sig);

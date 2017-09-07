@@ -4,8 +4,8 @@
 #include <time.h>
 #include "shell.h"
 
-output parseInput(char* input) {
-	output redirectData;
+RedirectData parseInput(char* input) {
+	RedirectData redirectData;
 	char output[2];
 
 	output[0] = strtok(input, ">");
@@ -14,8 +14,8 @@ output parseInput(char* input) {
 	redirectData.command = (char*) malloc(strlen(output[0]));
 	strcpy(redirectData.command, output[0]);
 
-	redirectData.filename = (char*) malloc(strlen(output[1]));
-	strcpy(redirectData.filename, output[1]);
+	redirectData.fileName = (char*) malloc(strlen(output[1]));
+	strcpy(redirectData.fileName, output[1]);
 
 	return redirectData;
 }
