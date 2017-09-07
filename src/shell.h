@@ -3,6 +3,6 @@ typedef struct RedirectData {
 	char* fileName;
 } RedirectData;
 
-output parseInput(char* input);
+RedirectData parseRedirectInput(char* input);
 static void handleCtrlC(int sig);
 void printCurrentTime();

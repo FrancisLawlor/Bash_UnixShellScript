@@ -4,10 +4,11 @@
 #include <time.h>
 #include "shell.h"
 
-RedirectData parseInput(char* input) {
+RedirectData parseRedirectInput(char* input) {
 	RedirectData redirectData;
 	char output[2];
 
+	// TO-DO Fix this
 	output[0] = strtok(input, ">");
 	output[1] = strtok(NULL, "/0");
 

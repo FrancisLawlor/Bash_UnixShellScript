@@ -21,7 +21,7 @@ int main(void) {
 	char input[1024];
 
 	while(1) {
-		output out;
+		RedirectData redirectData;
 		char** argv = malloc(sizeof(char*));
 		pid_t childPid;
 		int childStats;
@@ -44,7 +44,7 @@ int main(void) {
 		char* greaterThanSymbol = strchr(input, '>');
 
 		if (greaterThanSymbol != NULL) {
-			out = parseInput(input);
+			redirectData = parseRedirectInput(input);
 		}
 
 		int numberOfArguments = 0;
@@ -84,10 +84,10 @@ int main(void) {
 		if (childPid == 0) {
 			if (greaterThanSymbol != NULL) {
 				int originalStdOutputLocation = dup(1);
-				int file = open(out.filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+				int file = open(redirectData.fileName, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
 				dup2(file, 1);
-				execvp(out.command, argv);
+				execvp(redirectData.command, argv);
 				dup2(originalStdOutputLocation, 1);
 				close(originalStdOutputLocation);
 
