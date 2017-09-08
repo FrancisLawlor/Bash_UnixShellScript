@@ -6,9 +6,8 @@
 
 RedirectData parseRedirectInput(char* input) {
 	RedirectData redirectData;
-	char output[2];
+	char** output = malloc(sizeof(char*));
 
-	// TO-DO Fix this
 	output[0] = strtok(input, ">");
 	output[1] = strtok(NULL, "/0");
 
@@ -17,7 +16,6 @@ RedirectData parseRedirectInput(char* input) {
 
 	redirectData.fileName = (char*) malloc(strlen(output[1]));
 	strcpy(redirectData.fileName, output[1]);
-
 	return redirectData;
 }
 
