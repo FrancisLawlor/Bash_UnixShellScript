@@ -1,6 +1,6 @@
 # Bash_UnixShellScript
 
-![BashScript](bash.png)
+![BashScript](DisplayImage.png)
 
 A simple shell script designed to mimic the functionality of the bash terminal with a few slight changes.
 
@@ -29,6 +29,10 @@ Program contains implementation of cd command.
 #### *Redirect builtin* ####
 
 Program contains implementation of redirect for ```stdout``` using ```>``` symbol.
+
+```
+ls>output.txt
+```
 
 ### Usage ###
 
