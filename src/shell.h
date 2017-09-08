@@ -6,3 +6,4 @@ typedef struct RedirectData {
 RedirectData parseRedirectInput(char* input);
 static void handleCtrlC(int sig);
 void printCurrentTime();
+bool isEmptyString(char* input);

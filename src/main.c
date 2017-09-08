@@ -38,29 +38,33 @@ int main(void) {
 			break;
 		}
 
+		if (isEmptyString(input)) {
+			continue;
+		}
+
 		// Remove '\n' from end of input
 		input[strlen(input) - 1] = '\0';
 
-		char* greaterThanSymbol = strchr(input, '>');
+		bool containsRedirectSymbol = (strchr(input, '>') != NULL);
 
-		if (greaterThanSymbol != NULL) {
+		if (containsRedirectSymbol) {
 			redirectData = parseRedirectInput(input);
 		}
 
 		int numberOfArguments = 0;
 		char* upToSpace = strtok(input, " ");
 
-		while (upToSpace != NULL){
+		while (upToSpace != NULL) {
 			argv[numberOfArguments++] = upToSpace;
 			argv = realloc(argv, numberOfArguments + 1);
-			upToSpace = strtok(NULL, " ");
+			upToSpace = strtok(NULL, 	" ");
 		}
 
 		argv[numberOfArguments] = NULL;
 
 		bool enteredCd = false;
 
-		if (strcmp(argv[0], "cd") == 0 && (greaterThanSymbol == NULL)) {
+		if (strcmp(argv[0], "cd") == 0 && !containsRedirectSymbol) {
 			if (numberOfArguments > 1) {
 				DIR* dir = opendir(argv[1]);
 
@@ -82,7 +86,7 @@ int main(void) {
 		childPid = fork();
 
 		if (childPid == 0) {
-			if (greaterThanSymbol != NULL) {
+			if (containsRedirectSymbol) {
 				int originalStdOutputLocation = dup(1);
 				int file = open(redirectData.fileName, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
